@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My-mini-Olx</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    
+  <button id="btnFilter" class="filter">Фільтр</button>
+
+   <div id="modal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="close">&times;</span>
+        <h2 id="filterTitle1">Фільтр</h2>
+        <form>
+          <p id="filterTitle2">Рік випуску</p>
+          <input id="inputMinYear" type="text" placeholder="Від">
+          <input id="inputMaxYear" type="text" placeholder="До">
+          <p id="filterTitle3">Ціна</p>
+          <input id="inputMinPrice" type="text" placeholder="Від">
+          <input id="inputMaxPrice" type="text" placeholder="До">
+
+          <button id="inputBtn" type="button">Готово</button>
+          <button id="inputBtnClose" type="button">Очистити</button>
+        </form>
+        </div>
+   </div>
+
+
+  <div class="lang-block">
+    <h3 id="lang_title">Jęnzyk</h3>
+    <button onclick="changeLang('pl')" class="btn-pl">POL 🇵🇱</button>
+    <button onclick="changeLang('uk')" class="btn-uk">УКР 🇺🇦</button>
+  </div>
+
+  <div id="result2" class="total_car"></div>
+
+  <div id="result3" class="max_car"></div>
+  <div id="filterFull" class="max_car"></div>
+
+  <!-- Cards -->
+  <div id="ads-container"></div>
+
+  <script src="js/index.js"></script>
+</body>
+</html>

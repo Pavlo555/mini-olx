@@ -1,0 +1,127 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #333;
+    color: #fff;
+}
+
+.filter {
+    margin-left: 30px;
+    position: absolute;
+    font-size: 23px;
+    top: 11px;
+}
+
+.lang-block {
+    display: flex;
+    width: 200px;
+    margin-top: 20px;
+    margin-left: auto;
+}
+
+.lang-block .btn-pl {
+    background: #5a5a5a;
+    font-weight: bold;
+    color: #fff;
+}
+
+.lang-block .btn-uk {
+    background: linear-gradient(180deg,rgba(0, 70, 184, 1) 50%, rgba(255, 255, 0, 1) 50%);
+    font-weight: bold;
+}
+
+.lang-block h3 {
+    margin-right: 7px;
+}
+
+.total_car {
+    text-align: center;
+    font-size: 21px;
+    margin-top: 5px;
+}
+
+.max_car {
+    font-size: 20px;
+    margin-left: 10px;
+}
+/* Open modal */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 99;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.modal-content {
+    background: #fff;
+    color: #000;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 400px;
+}
+
+.close {
+    float: right;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+#inputBtnClose {
+    display: none;
+}
+
+/* Card */
+#ads-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.card {
+    display: flex;
+    flex-wrap: wrap;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 10px;
+    min-width: 320px;
+    max-width: 350px;
+}
+
+.card .imgcenter {
+    min-width: 320px;
+    max-width: 350px;
+    height: 248px;
+    margin-bottom: 5px;
+}
+
+.card .imgcenter img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card h3 {
+    font-size: 25px;
+    width: 100%;
+}
+
+.card p {
+    font-size: 20px;
+    margin-top: 2px;
+}
+
+.card p:last-child {
+    margin-left: 10px;
+}
