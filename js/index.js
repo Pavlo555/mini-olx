@@ -32,6 +32,7 @@ function changeLang(lang) {
     document.getElementById('filterTitle2').innerHTML = translations[currentLang].filterYear;
     document.getElementById('filterTitle3').innerHTML = translations[currentLang].filterPrice;
     document.getElementById('inputBtn').innerHTML = translations[currentLang].btnOk;
+    document.getElementById('inputBtnClose').innerHTML = translations[currentLang].btnClose;
 
     // Placehplder
     document.getElementById('inputMinYear').placeholder = translations[currentLang].min;
@@ -61,7 +62,8 @@ const translations = {
       min: "Від",
       max: "До",
       filterPrice: "Ціна",
-      btnOk: "Готово"
+      btnOk: "Готово",
+      btnClose: "Очистити"
     },
     pl: {
       filter: "Filter",
@@ -73,7 +75,8 @@ const translations = {
       min: "Od",
       max: "Do",
       filterPrice: "Cena",
-      btnOk: "Gotowe"
+      btnOk: "Gotowe",
+      btnClose: "Wyczyść"
     }
   };
   
