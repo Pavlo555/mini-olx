@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,31 +8,41 @@
 </head>
 <body>
     
-  <button id="btnFilter" class="filter">Фільтр</button>
+  
 
    <div id="modal" class="modal">
       <div class="modal-content">
         <span class="close" id="close">&times;</span>
-        <h2 id="filterTitle1">Фільтр</h2>
+        <h2 id="filterTitle1">Filter</h2>
         <form>
-          <p id="filterTitle2">Рік випуску</p>
-          <input id="inputMinYear" type="text" placeholder="Від">
-          <input id="inputMaxYear" type="text" placeholder="До">
-          <p id="filterTitle3">Ціна</p>
-          <input id="inputMinPrice" type="text" placeholder="Від">
-          <input id="inputMaxPrice" type="text" placeholder="До">
+          <p id="filterTitle2">Rok produkcji</p>
+          <input id="inputMinYear" type="text" placeholder="Od">
+          <input id="inputMaxYear" type="text" placeholder="Do">
+          <p id="filterTitle3">Cena</p>
+          <input id="inputMinPrice" type="text" placeholder="Od">
+          <input id="inputMaxPrice" type="text" placeholder="Do">
 
-          <button id="inputBtn" type="button">Готово</button>
-          <button id="inputBtnClose" type="button">Очистити</button>
+          <button id="inputBtn" type="button">Gotowe</button>
+          <button id="inputBtnClose" type="button">Wyczyść</button>
         </form>
         </div>
    </div>
 
 
   <div class="lang-block">
-    <h3 id="lang_title">Jęnzyk</h3>
-    <button onclick="changeLang('pl')" class="btn-pl">POL 🇵🇱</button>
-    <button onclick="changeLang('uk')" class="btn-uk">УКР 🇺🇦</button>
+    <div class="lang-block-left">
+      <button id="btnFilter" class="filter">Filter</button>
+    </div>
+    
+    <div class="lang-block-right">
+      <h3 id="lang_title">Jęnzyk</h3>
+      <form>
+         <select onchange="changeLang(this.value)" class="lang-select">
+          <option value="pl" selected>POL 🇵🇱</option>
+          <option value="uk" >УКР 🇺🇦</option>
+         </select>
+      </form>
+    </div>
   </div>
 
   <div id="result2" class="total_car"></div>

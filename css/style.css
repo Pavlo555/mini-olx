@@ -11,27 +11,39 @@ body {
 
 .filter {
     margin-left: 30px;
-    position: absolute;
     font-size: 23px;
-    top: 11px;
 }
 
 .lang-block {
     display: flex;
-    width: 200px;
-    margin-top: 20px;
+    height: 50px;
+    align-items: center;
+    position:sticky;
+    top: 0px;
+    background: #222;
+    box-shadow: 0 0 2px #ccc;
+}
+
+.lang-block .lang-block-left {
+    margin-right: auto;
+}
+
+.lang-block .lang-block-right {
     margin-left: auto;
+    display: flex;
 }
 
-.lang-block .btn-pl {
-    background: #5a5a5a;
-    font-weight: bold;
-    color: #fff;
-}
-
-.lang-block .btn-uk {
-    background: linear-gradient(180deg,rgba(0, 70, 184, 1) 50%, rgba(255, 255, 0, 1) 50%);
-    font-weight: bold;
+.lang-block .lang-select {
+  margin-right: 30px;
+  padding: 3px 5px;
+  font-size: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  background: linear-gradient(180deg,rgba(255, 255, 255, 1) 50%, rgba(255, 0, 0, 1) 50%);
+  font-weight: 900;
+  color: #000;
+  float: right;
 }
 
 .lang-block h3 {

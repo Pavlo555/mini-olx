@@ -1,28 +1,21 @@
-let currentLang = "uk";
+let currentLang = "pl";
 
 function changeLang(lang) {
     currentLang = lang;
 
     showAllAds(years);
 
-    const btnUk = document.querySelector('.btn-uk');
-    const btnPl = document.querySelector('.btn-pl');   
+    const btnLang = document.querySelector('.lang-select');   
 
     switch (lang) {
         case "uk":
-            btnUk.style.background = "linear-gradient(180deg,rgba(0, 70, 184, 1) 50%, rgba(255, 255, 0, 1) 50%)"
-            btnPl.style.background = "#5a5a5a"
-            btnPl.style.color = "#fff"
-            btnUk.style.color = "#000"
-            document.getElementById('lang_title').innerHTML = "Jęnzyk";
-
-            break;
-        case "pl":
-            btnPl.style.background = "linear-gradient(180deg,rgba(255, 255, 255, 1) 50%, rgba(255, 0, 0, 1) 50%)"
-            btnUk.style.background = "#5a5a5a"
-            btnUk.style.color = "#fff"
-            btnPl.style.color = "#000"
+            btnLang.style.background = "linear-gradient(180deg,rgba(0, 70, 184, 1) 50%, rgba(255, 255, 0, 1) 50%)"
             document.getElementById('lang_title').innerHTML = "Мова";
+            
+            break;
+            case "pl":
+                btnLang.style.background = "linear-gradient(180deg,rgba(255, 255, 255, 1) 50%, rgba(255, 0, 0, 1) 50%)"
+                document.getElementById('lang_title').innerHTML = "Jęnzyk";
             break;
     }
     // Text
@@ -83,18 +76,18 @@ const translations = {
   
 
 let ads = [
-    {name: "Golf 4", price: 5500, year: 2001, img: "https://punkta.pl/app/uploads/2018/04/auto-774418_1280-1.jpg"},
-    {name: "BMW E39", price: 7800, year: 2003, img: "https://www.pcarmarket.com/static/media/uploads/galleries/photos/uploads/galleries/24895-harris-2001-bmw-e39-m5/.thumbnails/M5_44_of_45.webp/M5_44_of_45-tiny-1200x0.webp"},
-    {name: "Audi A3", price: 14000, year: 2007, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTs6F7fPa96II6tyvyRRyc45VVrrnp373qbuA&s"},
-    {name: "Golf 5", price: 12000, year: 2006, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwnUo21HkrSOMehSrY7wtl1zRw6k9ade7bxQ&s"},
-    {name: "Opel Astra", price: 3500, year: 2000, img: "https://zmienolej.pl/modules/tvcmsblog/views/img/large-phsimpleblogfeatured235.jpg"},
-    {name: "Audi S4", price: 28000, year: 2007, img: "https://www.upgrademycar.shop/cdn/shop/files/ger_pm_front-diffuser-v-2-audi-a4-b7-5235_3-min.jpg?v=1726601707"},
-    {name: "Golf 6 GTI", price: 48000, year: 2011, img: "https://fscars.co.za/wp-content/uploads/2025/02/264_3827_I2.jpg"},
-    {name: "BMW F10", price: 65000, year: 2015, img: "https://avatars.mds.yandex.net/get-autoru-vos/2049300/489a0ef406da4689842449469ea5a622/456x342"},
-    {name: "Audi A3", price: 72000, year: 2017, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJ-3YRrYWLE0OUy8EKPO3m1RxFiurLBUzDrA&s"},
-    //{name: "Toyota Yaris", price: , year: , img: },
-    {name: "Mercedes E320", price: 16000, year: 2003, img: "https://ireland.apollo.olxcdn.com/v1/files/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmbiI6Im9nbHFleG5oZWQyMS1PVE9NT1RPUEwiLCJ3IjpbeyJmbiI6IndnNGducXA2eTFmLU9UT01PVE9QTCIsInMiOiIxNiIsImEiOiIwIiwicCI6IjEwLC0xMCJ9XX0.wUSDb-RFxiX4uCKE2YZbgsDMpz6SGLi8eODnSedgSsI/image;s=1024x0;q=80"},
-    //{name: "", price: , year: , img: }
+    {name: "Golf 4", price: 5500, year: 2001, img: "img/Golf-4_miniOlx.webp"},
+    {name: "BMW E39", price: 7800, year: 2003, img: "img/Bmw-E39_miniOlx.webp"},
+    {name: "Audi A3", price: 14000, year: 2007, img: "img/Audi-A3_miniOlx.jpg"},
+    {name: "Golf 5", price: 12000, year: 2006, img: "img/Golf-5_miniOlx.jpg"},
+    {name: "Opel Astra", price: 3500, year: 2000, img: "img/Opel-Astra-G_miniOlx.jpg"},
+    {name: "Audi S4", price: 28000, year: 2007, img: "img/Audi-S4_miniOlx.jpg"},
+    {name: "Golf 6 GTI", price: 48000, year: 2011, img: "img/Golf-6-Gti_miniOlx.jpg"},
+    {name: "BMW F10", price: 65000, year: 2015, img: "img/Bmw-F10_miniOlx.jpg"},
+    {name: "Audi A3", price: 72000, year: 2017, img: "img/Audi-A3-2017_miniOlx.jpg"},
+    {name: "Toyota Yaris", price: 27000, year: 2011, img: "img/Toyota-Yaris-3-2011_miniOlx.jpg"},
+    {name: "Mercedes E320", price: 16000, year: 2003, img: "img/Mercedes-E320-2003_miniOlx.jpg"},
+    {name: "Seat Leon", price: 10000, year: 2003, img: "img/Seat-Leon-2003_miniOlx.jpg"}
 ];
 
 // Modal script
