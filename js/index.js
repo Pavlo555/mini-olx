@@ -3,7 +3,14 @@ let currentLang = "pl";
 function changeLang(lang) {
     currentLang = lang;
 
-    showAllAds(years);
+    if (filteredArr) {
+        showAllAds(filtered);
+    }
+    if (isFiltered) {
+        showAllAds(years);
+    } else {
+        showAllAds(shuffledCars);
+    };
 
     const btnLang = document.querySelector('.lang-select');   
 
@@ -12,26 +19,38 @@ function changeLang(lang) {
             btnLang.style.background = "linear-gradient(180deg,rgba(0, 70, 184, 1) 50%, rgba(255, 255, 0, 1) 50%)"
             document.getElementById('lang_title').innerHTML = "Мова";
             
-            break;
-            case "pl":
-                btnLang.style.background = "linear-gradient(180deg,rgba(255, 255, 255, 1) 50%, rgba(255, 0, 0, 1) 50%)"
-                document.getElementById('lang_title').innerHTML = "Jęnzyk";
-            break;
+        break;
+        case "pl":
+            btnLang.style.background = "linear-gradient(180deg,rgba(255, 255, 255, 1) 50%, rgba(255, 0, 0, 1) 50%)"
+            document.getElementById('lang_title').innerHTML = "Jęnzyk";
+        break;
     }
     // Text
-    document.getElementById('result2').innerHTML = translations[currentLang].avgPrice + Math.floor(soPrice(years) * 100) / 100;
+    document.getElementById('result2').innerHTML = translations[currentLang].avgPrice + Math.floor(soPrice(adsActiv) * 100) / 100;
     document.getElementById('btnFilter').innerHTML = translations[currentLang].filter;
     document.getElementById('filterTitle1').innerHTML = translations[currentLang].filter;
     document.getElementById('filterTitle2').innerHTML = translations[currentLang].filterYear;
     document.getElementById('filterTitle3').innerHTML = translations[currentLang].filterPrice;
     document.getElementById('inputBtn').innerHTML = translations[currentLang].btnOk;
     document.getElementById('inputBtnClose').innerHTML = translations[currentLang].btnClose;
+    document.getElementById('btnSearchClose').innerHTML = translations[currentLang].btnClose;
+    document.getElementById('sortTitle').innerHTML = translations[currentLang].sortBy;
 
     // Placehplder
+    document.getElementById('inpSearch').placeholder = translations[currentLang].search;
+
     document.getElementById('inputMinYear').placeholder = translations[currentLang].min;
     document.getElementById('inputMaxYear').placeholder = translations[currentLang].max;
     document.getElementById('inputMinPrice').placeholder = translations[currentLang].min;
     document.getElementById('inputMaxPrice').placeholder = translations[currentLang].max;
+
+    // Options
+    const sortSelect = document.getElementById('btnSort');
+    
+    sortSelect.options[0].text = translations[currentLang].sortRandom;
+    sortSelect.options[1].text = translations[currentLang].sortMax;
+    sortSelect.options[2].text = translations[currentLang].sortMin;
+
 
     // Text time
     if (isFiltered) {
@@ -56,7 +75,12 @@ const translations = {
       max: "До",
       filterPrice: "Ціна",
       btnOk: "Готово",
-      btnClose: "Очистити"
+      btnClose: "Очистити",
+      search: "Шукай...",
+      sortBy: "Сортувати як:",
+      sortRandom: "Випадково (предмета)",
+      sortMax: "Найдорожчого (предмета)",
+      sortMin: "Найдешевшого (предмета)"
     },
     pl: {
       filter: "Filter",
@@ -69,58 +93,59 @@ const translations = {
       max: "Do",
       filterPrice: "Cena",
       btnOk: "Gotowe",
-      btnClose: "Wyczyść"
+      btnClose: "Wyczyść",
+      search: "Szukaj...",
+      sortBy: "Sortuj wedlug:",
+      sortRandom: "Losowego (przedmiotu)",
+      sortMax: "Najdroższego (przedmiotu)",
+      sortMin: "Najtańszego (przedmiotu)"
     }
   };
   
   
 
 let ads = [
-    {name: "Golf 4", price: 5500, year: 2001, img: "img/Golf-4_miniOlx.webp"},
-    {name: "BMW E39", price: 7800, year: 2003, img: "img/Bmw-E39_miniOlx.webp"},
-    {name: "Audi A3", price: 14000, year: 2007, img: "img/Audi-A3_miniOlx.jpg"},
-    {name: "Golf 5", price: 12000, year: 2006, img: "img/Golf-5_miniOlx.jpg"},
-    {name: "Opel Astra", price: 3500, year: 2000, img: "img/Opel-Astra-G_miniOlx.jpg"},
-    {name: "Audi S4", price: 28000, year: 2007, img: "img/Audi-S4_miniOlx.jpg"},
-    {name: "Golf 6 GTI", price: 48000, year: 2011, img: "img/Golf-6-Gti_miniOlx.jpg"},
-    {name: "BMW F10", price: 65000, year: 2015, img: "img/Bmw-F10_miniOlx.jpg"},
-    {name: "Audi A3", price: 72000, year: 2017, img: "img/Audi-A3-2017_miniOlx.jpg"},
-    {name: "Toyota Yaris", price: 27000, year: 2011, img: "img/Toyota-Yaris-3-2011_miniOlx.jpg"},
-    {name: "Mercedes E320", price: 16000, year: 2003, img: "img/Mercedes-E320-2003_miniOlx.jpg"},
-    {name: "Seat Leon", price: 10000, year: 2003, img: "img/Seat-Leon-2003_miniOlx.jpg"}
+    {name: "Golf 4", price: 5500, year: 2001, mileage: 240850, img: "img/Golf-4_miniOlx.webp"},
+    {name: "BMW E39", price: 7800, year: 2003, mileage: 270200, img: "img/Bmw-E39_miniOlx.webp"},
+    {name: "Audi A3", price: 14000, year: 2007, mileage: 250000, img: "img/Audi-A3_miniOlx.jpg"},
+    {name: "Golf 5", price: 12000, year: 2006, mileage: 211100, img: "img/Golf-5_miniOlx.jpg"},
+    {name: "Opel Astra", price: 3500, year: 2000, mileage: 380205, img: "img/Opel-Astra-G_miniOlx.jpg"},
+    {name: "Audi S4", price: 28000, year: 2007, mileage: 218000, img: "img/Audi-S4_miniOlx.jpg"},
+    {name: "Golf 6 GTI", price: 48000, year: 2011, mileage: 173000, img: "img/Golf-6-Gti_miniOlx.jpg"},
+    {name: "BMW F10", price: 65000, year: 2015, mileage: 140500, img: "img/Bmw-F10_miniOlx.jpg"},
+    {name: "Audi A3", price: 72000, year: 2017, mileage: 34000, img: "img/Audi-A3-2017_miniOlx.jpg"},
+    {name: "Toyota Yaris", price: 27000, year: 2011, mileage: 120000, img: "img/Toyota-Yaris-3-2011_miniOlx.jpg"},
+    {name: "Mercedes E320", price: 16000, year: 2003, mileage: 235780, img: "img/Mercedes-E320-2003_miniOlx.jpg"},
+    {name: "Seat Leon", price: 10000, year: 2003, mileage: 150032, img: "img/Seat-Leon-2003_miniOlx.jpg"}
 ];
-
-// Modal script
-
-const modal = document.getElementById("modal");
-const btn_filter = document.getElementById("btnFilter");
-const btnClose = document.getElementById("close");
-
-btn_filter.onclick = function() {
-   document.getElementById('modal').style.display = 'block';
-};
-
-btnClose.onclick = function() {
-   document.getElementById('modal').style.display = 'none';
-};
-
-modal.addEventListener("click", (e) => {
-   
-
-   if (e.target === modal) {
-    modal.style.display = "none";
-   }
-});
-
-// Ok BtnOkClose
-const btnOkClose = document.getElementById('inputBtn');
-
-btnOkClose.onclick = function() {
-    document.getElementById('modal').style.display = 'none';
-};
 
 
 // Function
+
+function randomArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+
+    [array[i], array[j]] = [array[j], array[i]];
+  };
+  return array;
+};
+
+function maxPrice(array) {
+    array.sort((a, b) => {
+       return b.price - a.price;
+    });
+
+    return array;
+};
+
+function minPrice(array) {
+    array.sort((a, b) => {
+       return a.price - b.price;
+    });
+
+    return array;
+};
 
 function soPrice(arr) {
 return arr.reduce((acc, el, index, arr) => {
@@ -134,7 +159,6 @@ return arr.reduce((acc, el, index, arr) => {
 }, 0);
 };
 
-document.getElementById('result2').innerHTML = translations[currentLang].avgPrice + Math.floor(soPrice(ads) * 100) / 100;
 
 const container = document.getElementById("ads-container");
 
@@ -149,27 +173,129 @@ function showAllAds(arr) {
           <p>${translations[currentLang].year} ${ad.year}</p>
           <p>${translations[currentLang].price} ${ad.price} zł</p>
         `;
+
+    card.addEventListener("click", () => {
+        localStorage.setItem("selectedAd", JSON.stringify(ad));
+        window.open("ad.html", "_blank");
+    });
+
         container.appendChild(card);
     });
-}
+};
 
-let years = ads;
+let typeSortValue = "randomTotal";
+
+let adsActiv = ads;
+let shuffledCars;
+function typeSort(type) {
+    typeSortValue = type;
+
+    if (isFiltered) {
+        adsActiv = years;
+        console.log("years");
+    } else if (filteredArr) {
+        adsActiv = filtered;
+        console.log("filtered");
+    } else {
+        adsActiv = ads;
+        console.log("ads");
+    };
+
+    switch (type) {
+        case "randomTotal":
+            shuffledCars = randomArray(adsActiv);
+        break;
+    
+        case "maxTotal":
+            shuffledCars = maxPrice(adsActiv);
+        break;
+        
+        case "minTotal":
+            shuffledCars = minPrice(adsActiv);
+        break;
+    };
+    
+    showAllAds(shuffledCars);
+};
+
+
+let years;
 let isFiltered = false;
 
-showAllAds(ads);
+shuffledCars  = randomArray(adsActiv);
+showAllAds(shuffledCars);
+
+document.getElementById('result2').innerHTML = translations[currentLang].avgPrice + Math.floor(soPrice(adsActiv) * 100) / 100;
+
+
+let filtered;
+let filteredArr = false;
+const SearchClose = document.getElementById('btnSearchClose');
+
+document.getElementById("btnSearch").addEventListener("click", () => {
+  const searchValue = document.getElementById("inpSearch").value.trim().toLowerCase();
+
+  
+  filtered = ads.filter(ad => ad.name.toLowerCase().includes(searchValue));
+
+  if (filtered.length > 0) {
+    isFiltered = false;
+    filteredArr = true;
+    showAllAds(filtered);
+    document.getElementById('result3').innerHTML = `Знайдено: ${filtered.length}`;
+    document.getElementById('result2').innerHTML = translations[currentLang].avgPrice + Math.floor(soPrice(filtered) * 100) / 100;
+    SearchClose .style.display = "block";
+
+    document.getElementById('inputBtnClose').style.display = 'none';
+    document.getElementById('inputMinYear').value = "";
+    document.getElementById('inputMaxYear').value = "";
+    document.getElementById('inputMinPrice').value = "";
+    document.getElementById('inputMaxPrice').value = "";
+
+    document.getElementById('filterFull').innerHTML = "";
+
+    typeSort(typeSortValue);
+  } else {
+    container.innerHTML = `<b style="color:white;text-align:center">Нічого не знайдено</b>`;
+    document.getElementById('result2').innerHTML = translations[currentLang].avgPrice + "0";
+    document.getElementById('result3').innerHTML = "";
+  }
+});
+
+SearchClose.addEventListener('click', ()=> {
+    filteredArr = false;
+    isFiltered = false;
+    typeSort(typeSortValue);
+
+    document.getElementById("inpSearch").value = "";
+    document.getElementById('result2').innerHTML = translations[currentLang].avgPrice + Math.floor(soPrice(shuffledCars) * 100) / 100;
+    document.getElementById('result3').innerHTML = "";
+    SearchClose .style.display = "none";
+
+    document.getElementById('inputBtnClose').style.display = 'none';
+    document.getElementById('inputMinYear').value = "";
+    document.getElementById('inputMaxYear').value = "";
+    document.getElementById('inputMinPrice').value = "";
+    document.getElementById('inputMaxPrice').value = "";
+
+    document.getElementById('filterFull').innerHTML = "";
+    
+    showAllAds(shuffledCars);
+});
 
 // Filter script
 document.getElementById('inputBtn').addEventListener('click', () => {
-    const yearMin = document.getElementById('inputMinYear').value;
-    const yearMax = document.getElementById('inputMaxYear').value;
-    const priceMin = document.getElementById('inputMinPrice').value;
-    const priceMax = document.getElementById('inputMaxPrice').value;
+    const yearMin = document.getElementById('inputMinYear').value || 0;
+    const yearMax = document.getElementById('inputMaxYear').value || 9999;
+    const priceMin = document.getElementById('inputMinPrice').value || 0;
+    const priceMax = document.getElementById('inputMaxPrice').value || Infinity;
     console.log(yearMin, yearMax, priceMin, priceMax);
 
 
     if( !isNaN(yearMin) && !isNaN(yearMax) && !isNaN(priceMin) && !isNaN(priceMax)) {
-        
-        years = ads.filter((el) => {
+        typeSort(typeSortValue);
+
+        years = shuffledCars.filter((el) => {
             return el.year >= yearMin && el.year <= yearMax && el.price >= priceMin && el.price <= priceMax;
         });
 
@@ -186,18 +312,19 @@ document.getElementById('inputBtn').addEventListener('click', () => {
         document.getElementById('result2').innerHTML = translations[currentLang].avgPrice + Math.floor(soPrice(years) * 100) / 100;
         document.getElementById('filterFull').innerHTML = translations[currentLang].year + " " + yearMin + "-" + yearMax + " " + translations[currentLang].price + " " + priceMin + "-" + priceMax + "zł";
 
-        showAllAds(years);
-
+        
         document.getElementById('inputBtnClose').style.display = 'block';
-
+        
         isFiltered = true;
+        typeSort(typeSortValue);
+        
+        showAllAds(years);
     };
 });
 
 // Filter script Close
 document.getElementById('inputBtnClose').addEventListener('click', () => {
-    years = ads;
-    showAllAds(years);
+    isFiltered = false;
 
     document.getElementById('inputBtnClose').style.display = 'none';
     document.getElementById('modal').style.display = 'none';
@@ -207,10 +334,11 @@ document.getElementById('inputBtnClose').addEventListener('click', () => {
     document.getElementById('inputMinPrice').value = "";
     document.getElementById('inputMaxPrice').value = "";
 
+    typeSort(typeSortValue);
 
-    document.getElementById('result2').innerHTML = translations[currentLang].avgPrice + Math.floor(soPrice(years) * 100) / 100;
+    document.getElementById('result2').innerHTML = translations[currentLang].avgPrice + Math.floor(soPrice(shuffledCars) * 100) / 100;
     document.getElementById('result3').innerHTML = "";
     document.getElementById('filterFull').innerHTML = "";
 
-    isFiltered = false;
+    showAllAds(shuffledCars);
 });

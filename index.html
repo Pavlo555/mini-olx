@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My-mini-Olx</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
     
@@ -29,9 +30,9 @@
    </div>
 
 
-  <div class="lang-block">
+  <header>
     <div class="lang-block-left">
-      <button id="btnFilter" class="filter">Filter</button>
+      <h1>My mini-OLX</h1>
     </div>
     
     <div class="lang-block-right">
@@ -43,16 +44,46 @@
          </select>
       </form>
     </div>
+  </header>
+
+  <nav>
+    <div class="total-sort">
+      <h4 id="sortTitle">Sortuj wedlug:</h4>
+      <form>
+        <select id="btnSort" onchange="typeSort(this.value)">
+          <option value="randomTotal" selected>Losowego (przedmiotu)</option>
+          <option value="maxTotal">Najdroszego (przedmiotu)</option>
+          <option value="minTotal">Najtańszego (przedmiotu)</option>
+        </select>
+      </form>
+    </div>
+
+    <div class="search" id="nav-search">
+      <form id="searchForm">
+        <input id="inpSearch" placeholder="Szukaj..." type="search">
+        <button id="btnSearch" type="button"><i class="fa-solid fa-magnifying-glass"></i></button>
+      </form>
+    </div>
+
+    <div class="filter-btn">
+      <button id="btnFilter" class="filter">Filter</button>
+    </div>
+  </nav>
+
+  <div class="search-block-center" id="search-center">
+      
   </div>
 
   <div id="result2" class="total_car"></div>
 
   <div id="result3" class="max_car"></div>
   <div id="filterFull" class="max_car"></div>
+  <button id="btnSearchClose" class="max_car">Wyczyść</button>
 
   <!-- Cards -->
   <div id="ads-container"></div>
 
   <script src="js/index.js"></script>
+  <script src="js/css_style_DOM.js"></script>
 </body>
 </html>
