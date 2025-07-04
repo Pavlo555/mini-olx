@@ -35,7 +35,14 @@ function changeLang(lang) {
     document.getElementById('inputBtnClose').innerHTML = translations[currentLang].btnClose;
     document.getElementById('btnSearchClose').innerHTML = translations[currentLang].btnClose;
     document.getElementById('sortTitle').innerHTML = translations[currentLang].sortBy;
-
+    document.getElementById('aboutUs').innerHTML = translations[currentLang].footerAboutUs;
+    document.getElementById('social').innerHTML = translations[currentLang].footerSocial;
+    document.getElementById('contact').innerHTML = translations[currentLang].footerContact;
+    document.getElementById('whoWe').innerHTML = translations[currentLang].aboutUsWhoWe;
+    document.getElementById('blog').innerHTML = translations[currentLang].aboutUsBlog;
+    document.getElementById('ourHistory').innerHTML = translations[currentLang].aboutUsOurHistory;
+    document.getElementById('helpMail').innerHTML = translations[currentLang].contactHelp;
+    document.getElementById('phoneNumber').innerHTML = translations[currentLang].contactPhoneNumber;
     // Placehplder
     document.getElementById('inpSearch').placeholder = translations[currentLang].search;
 
@@ -61,8 +68,19 @@ function changeLang(lang) {
     document.getElementById('filterFull').innerHTML = "";
     };
 
+    if (filteredArr) {
+        if (filteredArr && isFiltered) {
+            document.getElementById('result3').innerHTML =  translations[currentLang].allCars + years.length;
+        } else {
+            document.getElementById('result3').innerHTML =  translations[currentLang].allCars + filtered.length;
+        }
+    } else {
+    document.getElementById('result3').innerHTML = "";
+    };
+
 };
 
+// Translations words
 const translations = {
     uk: {
       filter: "Фільтр",
@@ -80,7 +98,15 @@ const translations = {
       sortBy: "Сортувати як:",
       sortRandom: "Випадково (предмета)",
       sortMax: "Найдорожчого (предмета)",
-      sortMin: "Найдешевшого (предмета)"
+      sortMin: "Найдешевшого (предмета)",
+      footerAboutUs: "Про нас",
+      footerSocial: "Соц Мережі",
+      footerContact: "Контакти",
+      aboutUsWhoWe: "Хто ми",
+      aboutUsBlog: "Блог",
+      aboutUsOurHistory: "Наша історія",
+      contactHelp: "Допомога: ",
+      contactPhoneNumber: "Номер телефону: +48 000 000 000"
     },
     pl: {
       filter: "Filter",
@@ -98,12 +124,20 @@ const translations = {
       sortBy: "Sortuj wedlug:",
       sortRandom: "Losowego (przedmiotu)",
       sortMax: "Najdroższego (przedmiotu)",
-      sortMin: "Najtańszego (przedmiotu)"
+      sortMin: "Najtańszego (przedmiotu)",
+      footerAboutUs: "O nas",
+      footerSocial: "Social",
+      footerContact: "Kontakty",
+      aboutUsWhoWe: "Kto my",
+      aboutUsBlog: "Blog",
+      aboutUsOurHistory: "Nasza historia",
+      contactHelp: "Pomoc: ",
+      contactPhoneNumber: "Numer telefonu: +48 000 000 000"
     }
   };
   
   
-
+// Array cars
 let ads = [
     {name: "Golf 4", price: 5500, year: 2001, mileage: 240850, img: "img/Golf-4_miniOlx.webp"},
     {name: "BMW E39", price: 7800, year: 2003, mileage: 270200, img: "img/Bmw-E39_miniOlx.webp"},
@@ -183,6 +217,7 @@ function showAllAds(arr) {
     });
 };
 
+// Sort code
 let typeSortValue = "randomTotal";
 
 let adsActiv = ads;
@@ -227,7 +262,7 @@ showAllAds(shuffledCars);
 
 document.getElementById('result2').innerHTML = translations[currentLang].avgPrice + Math.floor(soPrice(adsActiv) * 100) / 100;
 
-
+// Search code
 let filtered;
 let filteredArr = false;
 const SearchClose = document.getElementById('btnSearchClose');
@@ -242,9 +277,9 @@ document.getElementById("btnSearch").addEventListener("click", () => {
     isFiltered = false;
     filteredArr = true;
     showAllAds(filtered);
-    document.getElementById('result3').innerHTML = `Знайдено: ${filtered.length}`;
+    document.getElementById('result3').innerHTML =  translations[currentLang].allCars + filtered.length;
     document.getElementById('result2').innerHTML = translations[currentLang].avgPrice + Math.floor(soPrice(filtered) * 100) / 100;
-    SearchClose .style.display = "block";
+    SearchClose.style.display = "block";
 
     document.getElementById('inputBtnClose').style.display = 'none';
     document.getElementById('inputMinYear').value = "";
@@ -256,7 +291,7 @@ document.getElementById("btnSearch").addEventListener("click", () => {
 
     typeSort(typeSortValue);
   } else {
-    container.innerHTML = `<b style="color:white;text-align:center">Нічого не знайдено</b>`;
+    container.innerHTML = `<b style="color:white;text-align:center">Nieczego nie znaleziono</b>`;
     document.getElementById('result2').innerHTML = translations[currentLang].avgPrice + "0";
     document.getElementById('result3').innerHTML = "";
   }
@@ -283,7 +318,7 @@ SearchClose.addEventListener('click', ()=> {
     showAllAds(shuffledCars);
 });
 
-// Filter script
+// Filter code
 document.getElementById('inputBtn').addEventListener('click', () => {
     const yearMin = document.getElementById('inputMinYear').value || 0;
     const yearMax = document.getElementById('inputMaxYear').value || 9999;
@@ -322,7 +357,7 @@ document.getElementById('inputBtn').addEventListener('click', () => {
     };
 });
 
-// Filter script Close
+// Filter code Close
 document.getElementById('inputBtnClose').addEventListener('click', () => {
     isFiltered = false;
 

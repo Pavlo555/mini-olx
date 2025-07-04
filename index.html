@@ -10,26 +10,27 @@
 <body>
     
   
+  <!-- Modal -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="close">&times;</span>
+      <h2 id="filterTitle1">Filter</h2>
+      <form>
+        <p id="filterTitle2">Rok produkcji</p>
+        <input id="inputMinYear" type="text" placeholder="Od">
+        <input id="inputMaxYear" type="text" placeholder="Do">
+        <p id="filterTitle3">Cena</p>
+        <input id="inputMinPrice" type="text" placeholder="Od">
+        <input id="inputMaxPrice" type="text" placeholder="Do">
 
-   <div id="modal" class="modal">
-      <div class="modal-content">
-        <span class="close" id="close">&times;</span>
-        <h2 id="filterTitle1">Filter</h2>
-        <form>
-          <p id="filterTitle2">Rok produkcji</p>
-          <input id="inputMinYear" type="text" placeholder="Od">
-          <input id="inputMaxYear" type="text" placeholder="Do">
-          <p id="filterTitle3">Cena</p>
-          <input id="inputMinPrice" type="text" placeholder="Od">
-          <input id="inputMaxPrice" type="text" placeholder="Do">
-
-          <button id="inputBtn" type="button">Gotowe</button>
-          <button id="inputBtnClose" type="button">Wyczyść</button>
-        </form>
-        </div>
-   </div>
+        <button id="inputBtn" type="button">Gotowe</button>
+        <button id="inputBtnClose" type="button">Wyczyść</button>
+      </form>
+      </div>
+  </div>
 
 
+  <!-- Header -->
   <header>
     <div class="lang-block-left">
       <h1>My mini-OLX</h1>
@@ -46,6 +47,7 @@
     </div>
   </header>
 
+  <!-- Nav -->
   <nav>
     <div class="total-sort">
       <h4 id="sortTitle">Sortuj wedlug:</h4>
@@ -68,20 +70,57 @@
     <div class="filter-btn">
       <button id="btnFilter" class="filter">Filter</button>
     </div>
+    
   </nav>
+  
+  <!-- Search Center -->
+  <div class="search-block-center" id="search-center"></div>
 
-  <div class="search-block-center" id="search-center">
-      
-  </div>
 
-  <div id="result2" class="total_car"></div>
+  <!-- Main -->
+  <main>
 
-  <div id="result3" class="max_car"></div>
-  <div id="filterFull" class="max_car"></div>
-  <button id="btnSearchClose" class="max_car">Wyczyść</button>
+    <div id="result2" class="total_car"></div>
 
-  <!-- Cards -->
-  <div id="ads-container"></div>
+    <div id="result3" class="max_car"></div>
+    <div id="filterFull" class="max_car"></div>
+    <button id="btnSearchClose" class="max_car">Wyczyść</button>
+
+    <!-- Cards -->
+    <div id="ads-container"></div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <h2>My mini-OLX</h2>
+    
+    <div class="footer-container">
+      <div class="footer-section about-us">
+        <h3 id="aboutUs">O nas</h3>
+        <ul>
+          <li><a href="#" id="whoWe" target="_blank">Kto my</a></li>
+          <li><a href="#" id="blog" target="_blank">Blog</a></li>
+          <li><a href="#" id="ourHistory" target="_blank">Nasza historia</a></li>
+        </ul>
+      </div>
+      <div class="footer-section social">
+        <h3 id="social">Social</h3>
+        <button><a class="you-tube" href="#" target="_blank"><i class="fa-brands fa-youtube"></i></a></button>
+        <button><a class="instagram" href="#" target="_blank"><i class="fa-brands fa-instagram"></i></a></button>
+        <button><a class="facebook" href="#" target="_blank"><i class="fa-brands fa-facebook"></i></a></button>
+        <button><a class="pinterest" href="#" target="_blank"><i class="fa-brands fa-pinterest"></i></a></button>
+      </div>
+      <div class="footer-section contact">
+        <h3 id="contact">Kontakty</h3>
+        <ul>
+          <li><p id="helpMail" style="display: inline;">Pomoc: </p><a href="mailto:support@my-mini-olx.com" target="_blank">support@my-mini-olx.com</a></p></li>
+          <li><p id="phoneNumber">Numer telefonu: +48 000 000 000</p></li>
+        </ul>
+      </div>
+    </div>
+
+    <h4>© 2025 <span>My mini-OLX</span> All rights reserved.</h4>
+  </footer>
 
   <script src="js/index.js"></script>
   <script src="js/css_style_DOM.js"></script>
