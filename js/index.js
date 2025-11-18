@@ -1,20 +1,35 @@
 let currentLang = "pl";
 
+// Filter
+let years = null;
+let isFiltered = false;
+
+// Search
+let filtered = null;
+let filteredArr = false;
+
 function changeLang(lang) {
     currentLang = lang;
+    applyStaticTranslations();
+    updateResultsTexts();
+    showAllAds(getActiveList());
+}
 
-    if (filteredArr) {
-        showAllAds(filtered);
-    }
-    if (isFiltered) {
-        showAllAds(years);
+function getActiveList() {
+    if (isFiltered && years) {
+        return years;
+    } else if (filteredArr && filtered) {
+        return filtered;
     } else {
-        showAllAds(shuffledCars);
-    };
+        return ads;
+    }
+}
 
+function applyStaticTranslations() {
+    const t = translations[currentLang];
     const btnLang = document.querySelector('.lang-select');   
 
-    switch (lang) {
+    switch (currentLang) {
         case "uk":
             btnLang.style.background = "linear-gradient(180deg,rgba(0, 70, 184, 1) 50%, rgba(255, 255, 0, 1) 50%)"
             document.getElementById('lang_title').innerHTML = "Мова";
@@ -22,63 +37,79 @@ function changeLang(lang) {
         break;
         case "pl":
             btnLang.style.background = "linear-gradient(180deg,rgba(255, 255, 255, 1) 50%, rgba(255, 0, 0, 1) 50%)"
-            document.getElementById('lang_title').innerHTML = "Jęnzyk";
+            document.getElementById('lang_title').innerHTML = "Jenzyk";
         break;
     }
     // Text
-    document.getElementById('result2').innerHTML = translations[currentLang].avgPrice + Math.floor(soPrice(adsActiv) * 100) / 100;
-    document.getElementById('btnFilter').innerHTML = translations[currentLang].filter;
-    document.getElementById('filterTitle1').innerHTML = translations[currentLang].filter;
-    document.getElementById('filterTitle2').innerHTML = translations[currentLang].filterYear;
-    document.getElementById('filterTitle3').innerHTML = translations[currentLang].filterPrice;
-    document.getElementById('inputBtn').innerHTML = translations[currentLang].btnOk;
-    document.getElementById('inputBtnClose').innerHTML = translations[currentLang].btnClose;
-    document.getElementById('btnSearchClose').innerHTML = translations[currentLang].btnClose;
-    document.getElementById('sortTitle').innerHTML = translations[currentLang].sortBy;
-    document.getElementById('aboutUs').innerHTML = translations[currentLang].footerAboutUs;
-    document.getElementById('social').innerHTML = translations[currentLang].footerSocial;
-    document.getElementById('contact').innerHTML = translations[currentLang].footerContact;
-    document.getElementById('whoWe').innerHTML = translations[currentLang].aboutUsWhoWe;
-    document.getElementById('blog').innerHTML = translations[currentLang].aboutUsBlog;
-    document.getElementById('ourHistory').innerHTML = translations[currentLang].aboutUsOurHistory;
-    document.getElementById('helpMail').innerHTML = translations[currentLang].contactHelp;
-    document.getElementById('phoneNumber').innerHTML = translations[currentLang].contactPhoneNumber;
-    // Placehplder
-    document.getElementById('inpSearch').placeholder = translations[currentLang].search;
+    document.getElementById('btnFilter').innerHTML = t.filter;
+    document.getElementById('filterTitle1').innerHTML = t.filter;
+    document.getElementById('filterTitle2').innerHTML = t.filterYear;
+    document.getElementById('filterTitle3').innerHTML = t.filterPrice;
+    document.getElementById('inputBtn').innerHTML = t.btnOk;
+    document.getElementById('inputBtnClose').innerHTML = t.btnClose;
+    document.getElementById('btnSearchClose').innerHTML = t.btnClose;
+    document.getElementById('sortTitle').innerHTML = t.sortBy;
+    document.getElementById('aboutUs').innerHTML = t.footerAboutUs;
+    document.getElementById('social').innerHTML = t.footerSocial;
+    document.getElementById('contact').innerHTML = t.footerContact;
+    document.getElementById('whoWe').innerHTML = t.aboutUsWhoWe;
+    document.getElementById('blog').innerHTML = t.aboutUsBlog;
+    document.getElementById('ourHistory').innerHTML = t.aboutUsOurHistory;
+    document.getElementById('helpMail').innerHTML = t.contactHelp;
+    document.getElementById('phoneNumber').innerHTML = t.contactPhoneNumber;
 
-    document.getElementById('inputMinYear').placeholder = translations[currentLang].min;
-    document.getElementById('inputMaxYear').placeholder = translations[currentLang].max;
-    document.getElementById('inputMinPrice').placeholder = translations[currentLang].min;
-    document.getElementById('inputMaxPrice').placeholder = translations[currentLang].max;
+    // Placehplder
+    document.getElementById('inpSearch').placeholder = t.search;
+    document.getElementById('inputMinYear').placeholder = t.min;
+    document.getElementById('inputMaxYear').placeholder = t.max;
+    document.getElementById('inputMinPrice').placeholder = t.min;
+    document.getElementById('inputMaxPrice').placeholder = t.max;
 
     // Options
     const sortSelect = document.getElementById('btnSort');
     
-    sortSelect.options[0].text = translations[currentLang].sortRandom;
-    sortSelect.options[1].text = translations[currentLang].sortMax;
-    sortSelect.options[2].text = translations[currentLang].sortMin;
+    sortSelect.options[0].text = t.sortRandom;
+    sortSelect.options[1].text = t.sortMax;
+    sortSelect.options[2].text = t.sortMin;
+}
 
+function updateResultsTexts() {
+    const t = translations[currentLang];
+    const list = getActiveList();
+    const filterFull = document.getElementById('filterFull');
+    
+    document.getElementById('result2').innerHTML = t.avgPrice + Math.floor(soPrice(list) * 100) / 100;
+
+    updateResultsValue();
 
     // Text time
     if (isFiltered) {
-    document.getElementById('result3').innerHTML = translations[currentLang].allCars + years.length;
-    document.getElementById('filterFull').innerHTML = translations[currentLang].year + " " + document.getElementById('inputMinYear').value + "-" + document.getElementById('inputMaxYear').value + " " + translations[currentLang].price + " " + document.getElementById('inputMinPrice').value + "-" + document.getElementById('inputMaxPrice').value + "zł";
-    } else {
-    document.getElementById('result3').innerHTML = "";
-    document.getElementById('filterFull').innerHTML = "";
-    };
+    const minYear = document.getElementById('inputMinYear').value || 0;
+    const maxYear = document.getElementById('inputMaxYear').value || 9999;
+    const minPrice = document.getElementById('inputMinPrice').value || 0;
+    const maxPrice = document.getElementById('inputMaxPrice').value || Infinity;
 
-    if (filteredArr) {
-        if (filteredArr && isFiltered) {
-            document.getElementById('result3').innerHTML =  translations[currentLang].allCars + years.length;
-        } else {
-            document.getElementById('result3').innerHTML =  translations[currentLang].allCars + filtered.length;
-        }
+    
+    filterFull.innerHTML = t.year + " " + minYear + "-" + maxYear + " " + t.price + " " + minPrice + "-" + maxPrice + "zł";
     } else {
-    document.getElementById('result3').innerHTML = "";
-    };
+    filterFull.innerHTML = "";
+    }
+}
 
-};
+function updateResultsValue() {
+    const t = translations[currentLang];
+    
+    const result3 = document.getElementById('result3');
+
+    if (isFiltered) {
+        result3.innerHTML = t.allCars + years.length;
+    } else if (filteredArr) {
+        result3.innerHTML =  t.allCars + filtered.length;
+    } else {
+        result3.innerHTML = "";
+    }
+}
+
 
 // Translations words
 const translations = {
@@ -106,7 +137,8 @@ const translations = {
       aboutUsBlog: "Блог",
       aboutUsOurHistory: "Наша історія",
       contactHelp: "Допомога: ",
-      contactPhoneNumber: "Номер телефону: +48 000 000 000"
+      contactPhoneNumber: "Номер телефону: +48 000 000 000",
+      searchUndefined: "Нічого не знайдено"
     },
     pl: {
       filter: "Filter",
@@ -132,9 +164,10 @@ const translations = {
       aboutUsBlog: "Blog",
       aboutUsOurHistory: "Nasza historia",
       contactHelp: "Pomoc: ",
-      contactPhoneNumber: "Numer telefonu: +48 000 000 000"
+      contactPhoneNumber: "Numer telefonu: +48 000 000 000",
+      searchUndefined: "Nieczego nie znaleziono"
     }
-  };
+};
   
   
 // Array cars
@@ -163,7 +196,7 @@ function randomArray(array) {
     [array[i], array[j]] = [array[j], array[i]];
   };
   return array;
-};
+}
 
 function maxPrice(array) {
     array.sort((a, b) => {
@@ -171,7 +204,7 @@ function maxPrice(array) {
     });
 
     return array;
-};
+}
 
 function minPrice(array) {
     array.sort((a, b) => {
@@ -179,7 +212,7 @@ function minPrice(array) {
     });
 
     return array;
-};
+}
 
 function soPrice(arr) {
 return arr.reduce((acc, el, index, arr) => {
@@ -191,7 +224,7 @@ return arr.reduce((acc, el, index, arr) => {
    
    return acc;
 }, 0);
-};
+}
 
 
 const container = document.getElementById("ads-container");
@@ -215,59 +248,57 @@ function showAllAds(arr) {
 
         container.appendChild(card);
     });
-};
+}
 
 // Sort code
 let typeSortValue = "randomTotal";
 
-let adsActiv = ads;
 let shuffledCars;
 function typeSort(type) {
     typeSortValue = type;
 
-    if (isFiltered) {
-        adsActiv = years;
-        console.log("years");
-    } else if (filteredArr) {
-        adsActiv = filtered;
-        console.log("filtered");
-    } else {
-        adsActiv = ads;
-        console.log("ads");
-    };
-
     switch (type) {
         case "randomTotal":
-            shuffledCars = randomArray(adsActiv);
+            shuffledCars = randomArray(getActiveList());
         break;
     
         case "maxTotal":
-            shuffledCars = maxPrice(adsActiv);
+            shuffledCars = maxPrice(getActiveList());
         break;
         
         case "minTotal":
-            shuffledCars = minPrice(adsActiv);
+            shuffledCars = minPrice(getActiveList());
         break;
-    };
+    }
     
     showAllAds(shuffledCars);
-};
+}
 
 
-let years;
-let isFiltered = false;
-
-shuffledCars  = randomArray(adsActiv);
+shuffledCars  = randomArray(ads);
 showAllAds(shuffledCars);
 
-document.getElementById('result2').innerHTML = translations[currentLang].avgPrice + Math.floor(soPrice(adsActiv) * 100) / 100;
+document.getElementById('result2').innerHTML = translations[currentLang].avgPrice + Math.floor(soPrice(getActiveList()) * 100) / 100;
 
 // Search code
-let filtered;
-let filteredArr = false;
 const SearchClose = document.getElementById('btnSearchClose');
 
 document.getElementById("btnSearch").addEventListener("click", () => {
+    if (document.getElementById("inpSearch").value.trim() === "") return;
+
+    doSearch()
+});
+
+inpSearch.addEventListener("keydown", (e) => {
+    if (document.getElementById("inpSearch").value.trim() === "") return;
+
+    if (e.key === "Enter") {
+        e.preventDefault();
+        doSearch();
+    }
+});
+
+function doSearch() {
   const searchValue = document.getElementById("inpSearch").value.trim().toLowerCase();
 
   
@@ -277,7 +308,9 @@ document.getElementById("btnSearch").addEventListener("click", () => {
     isFiltered = false;
     filteredArr = true;
     showAllAds(filtered);
-    document.getElementById('result3').innerHTML =  translations[currentLang].allCars + filtered.length;
+
+    updateResultsValue();
+
     document.getElementById('result2').innerHTML = translations[currentLang].avgPrice + Math.floor(soPrice(filtered) * 100) / 100;
     SearchClose.style.display = "block";
 
@@ -291,11 +324,12 @@ document.getElementById("btnSearch").addEventListener("click", () => {
 
     typeSort(typeSortValue);
   } else {
-    container.innerHTML = `<b style="color:white;text-align:center">Nieczego nie znaleziono</b>`;
+    container.innerHTML = `<b style="color:white;text-align:center">${translations[currentLang].searchUndefined}</b>`;
     document.getElementById('result2').innerHTML = translations[currentLang].avgPrice + "0";
-    document.getElementById('result3').innerHTML = "";
+    
+    updateResultsValue();
   }
-});
+}
 
 SearchClose.addEventListener('click', ()=> {
     filteredArr = false;
@@ -304,7 +338,9 @@ SearchClose.addEventListener('click', ()=> {
 
     document.getElementById("inpSearch").value = "";
     document.getElementById('result2').innerHTML = translations[currentLang].avgPrice + Math.floor(soPrice(shuffledCars) * 100) / 100;
-    document.getElementById('result3').innerHTML = "";
+    
+    updateResultsValue();
+
     SearchClose .style.display = "none";
 
     document.getElementById('inputBtnClose').style.display = 'none';
@@ -324,7 +360,8 @@ document.getElementById('inputBtn').addEventListener('click', () => {
     const yearMax = document.getElementById('inputMaxYear').value || 9999;
     const priceMin = document.getElementById('inputMinPrice').value || 0;
     const priceMax = document.getElementById('inputMaxPrice').value || Infinity;
-    console.log(yearMin, yearMax, priceMin, priceMax);
+    
+    // console.log(yearMin, yearMax, priceMin, priceMax); // Debug (for testing)
 
 
     if( !isNaN(yearMin) && !isNaN(yearMax) && !isNaN(priceMin) && !isNaN(priceMax)) {
@@ -336,14 +373,6 @@ document.getElementById('inputBtn').addEventListener('click', () => {
 
         container.innerHTML = "";
 
-        years.forEach((el, index, arr) => {
-            console.log("Кількість машин старше >" + yearMin + ": " + (index + 1) + "; ", el);
-
-            if(index === arr.length - 1) {
-               document.getElementById('result3').innerHTML = translations[currentLang].allCars + arr.length;
-            }
-        });
-
         document.getElementById('result2').innerHTML = translations[currentLang].avgPrice + Math.floor(soPrice(years) * 100) / 100;
         document.getElementById('filterFull').innerHTML = translations[currentLang].year + " " + yearMin + "-" + yearMax + " " + translations[currentLang].price + " " + priceMin + "-" + priceMax + "zł";
 
@@ -354,7 +383,8 @@ document.getElementById('inputBtn').addEventListener('click', () => {
         typeSort(typeSortValue);
         
         showAllAds(years);
-    };
+        updateResultsValue();
+    }
 });
 
 // Filter code Close
@@ -372,8 +402,17 @@ document.getElementById('inputBtnClose').addEventListener('click', () => {
     typeSort(typeSortValue);
 
     document.getElementById('result2').innerHTML = translations[currentLang].avgPrice + Math.floor(soPrice(shuffledCars) * 100) / 100;
-    document.getElementById('result3').innerHTML = "";
-    document.getElementById('filterFull').innerHTML = "";
+    
+    if (filteredArr) {
+        updateResultsValue();
+
+        document.getElementById('filterFull').innerHTML = "";
+    } else {
+        document.getElementById('result3').innerHTML = "";
+        document.getElementById('filterFull').innerHTML = "";
+    }
+    
+
 
     showAllAds(shuffledCars);
 });

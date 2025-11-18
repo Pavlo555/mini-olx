@@ -7,6 +7,10 @@
 }
 
 body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+
     background: #333;
     color: #fff;
 }
@@ -180,6 +184,10 @@ nav .filter-btn .filter {
 
 /* Result */
 
+main {
+    flex-grow: 1;
+}
+
 .total_car {
     text-align: center;
     font-size: 21px;
@@ -282,6 +290,7 @@ footer {
     border-top: 2px #fff solid;
     margin-top: 15px;
     padding-bottom: 30px;
+    float: inline-end;
 }
 
 footer h2 {
